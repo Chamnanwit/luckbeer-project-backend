@@ -6,6 +6,8 @@ const router = express.Router();
 
 // router.get("/:beerId", beerController.dataBeer);
 // router.post("/", beerController.addBeer);
-// router.post("/comment", beerController.commentBeer)
+// router.post("/comment", beerController.addCommentBeer)
+// router.put("/comment/:commentId", beerController.updateCommentBeer)
+
 
 module.exports = router;
