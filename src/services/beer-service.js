@@ -1,4 +1,23 @@
-const { Beer, Type, Comment, Like } = require("../models");
+const { where } = require("sequelize");
+const { Beer, Type, Comment, Like, ImageBeer, Brewery, User } = require("../models");
+
+exports.getAllBeer = () =>
+  Beer.findAll({
+    include: [
+      {
+        model: Type,
+      },
+      {
+        model: ImageBeer,
+      },
+      {
+        model: Comment,
+      },
+      {
+        model: Brewery,
+      },
+    ],
+  });
 
 exports.findBeer = (typeBeerId) =>
   Beer.findAll({
@@ -15,13 +34,26 @@ exports.findBeer = (typeBeerId) =>
 exports.addBeer = (beer) => Beer.create(beer);
 
 exports.dataBeer = (beerId) =>
-  Beer.findOne({
-    where: {
-      id: beerId,
-    },
+  Beer.findByPk(beerId, {
+    include: [
+      {
+        model: Type,
+      },
+      {
+        model: ImageBeer,
+      },
+      {
+        model: Comment,
+      },
+      {
+        model: Brewery,
+      },
+    ],
   });
 
-exports.addCommentBeer = (comment) => Comment.create(comment);
+exports.addCommentBeer = async (message, beerId, userId) => {
+  return await Comment.create({ message, beerId, userId });
+};
 
 exports.updateCommentBeer = (updatedComment, commentId) =>
   Comment.update(updatedComment, { where: { id: commentId } });
@@ -38,4 +70,12 @@ exports.deleteCommentBeer = (commentId) =>
     where: {
       id: commentId,
     },
+  });
+
+exports.createImageBeer = (createValue) => ImageBeer.create(createValue);
+
+exports.getCommentBeer = (beerId) =>
+  Comment.findAll({
+    where: { beerId: beerId },
+    include: [{ model: User }],
   });

@@ -9,13 +9,14 @@ const router = express.Router();
 
 router.get("/search", breweryController.findBrewery);
 router.get("/:breweryId", breweryController.dataBrewery);
-router.post("/", authenticate, authenticateAdmin, breweryController.addBrewery);
-router.post(
-  "/image",
-  authenticate,
-  authenticateAdmin,
-  upload.fields([{ name: "image", maxCount: 1 },{ name: "logo", maxCount: 1 }]),
-  breweryController.uploadImage
-);
+router.get("/", breweryController.getAllBrewery);
+router.post("/", authenticate, authenticateAdmin,upload.fields([{ name: "image", maxCount: 1 },{ name: "logo", maxCount: 1 }]), breweryController.addBrewery);
+// router.post(
+//   "/image",
+//   authenticate,
+//   authenticateAdmin,
+//   upload.fields([{ name: "image", maxCount: 1 },{ name: "logo", maxCount: 1 }]),
+//   breweryController.uploadImage
+// );
 
 module.exports = router;

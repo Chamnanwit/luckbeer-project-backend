@@ -1,6 +1,8 @@
 const { Op } = require('sequelize');
 const { Brewery } = require("../models");
 
+exports.getAllBrewery = () => Brewery.findAll();
+
 exports.addBrewery = (brew) => Brewery.create(brew);
 
 exports.dataBrewery = (breweryId) =>
@@ -18,3 +20,5 @@ exports.dataBrewery = (breweryId) =>
       },
     },
   });
+
+  exports.createImageBrewery = (createValue) => Brewery.create(createValue);
