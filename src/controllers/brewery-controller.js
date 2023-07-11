@@ -15,26 +15,29 @@ exports.getAllBrewery = async (req, res, next) => {
 exports.addBrewery = async (req, res, next) => {
   try {
     const brew = req.body;
-    const rs2 = await breweryService.addBrewery(brew);
+    // console.log("----------------------------", brew)
     // console.log(brew)
-    // const createValue = {};
-    // createValue.image = await uploadService.upload(req.files.image[0].path);
-    // createValue.logo = await uploadService.upload(req.files.logo[0].path);
+
+    const uploadImage = await uploadService.upload(req.files.image[0].path);
+    brew.image = uploadImage.secure_url;
+    const uploadLogo = await uploadService.upload(req.files.logo[0].path);
+    brew.logo = uploadLogo.secure_url;
     // const rs = await breweryService.create(createValue);
+    const rs2 = await breweryService.addBrewery(brew);
     // res.status(200).json(rs);
 
     res.status(200).json(rs2);
   } catch (err) {
     next(err);
   } 
-  // finally {
-  //   if (req.files.image) {
-  //     fs.unlinkSync(req.files.image[0].path);
-  //   }
-  //   if (req.files.logo) {
-  //     fs.unlinkSync(req.files.logo[0].path);
-  //   }
-  // }
+  finally {
+    if (req.files.image) {
+      fs.unlinkSync(req.files.image[0].path);
+    }
+    if (req.files.logo) {
+      fs.unlinkSync(req.files.logo[0].path);
+    }
+  }
 };
 
 exports.dataBrewery = async (req, res, next) => {
@@ -64,8 +67,12 @@ exports.findBrewery = async (req, res, next) => {
 exports.uploadImage = async (req, res, next) => {
   try {
     const createValue = {};
-    createValue.image = await uploadService.upload(req.files.image[0].path);
-    createValue.logo = await uploadService.upload(req.files.logo[0].path);
+    const image = await uploadService.upload(req.files.image[0].path);
+    createValue.image = image.secure_url;
+    
+    const logo = await uploadService.upload(req.files.logo[0].path);
+    createValue.logo = logo.secure_url;
+
     const rs = await user.create(createValue);
     res.status(200).json(rs);
   } catch (err) {
