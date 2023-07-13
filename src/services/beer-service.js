@@ -28,6 +28,9 @@ exports.findBeer = (typeBeerId) =>
       {
         model: Type,
       },
+      {
+        model: ImageBeer,
+      },
     ],
   });
 

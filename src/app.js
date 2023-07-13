@@ -34,11 +34,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/auth", authRoute);
 app.use("/beer", beerRoute);
 app.use("/brewery", breweryRoute);
-// app.use("/comment", commentRoute)
-// app.use("/imagebeer", imagebeerRoute)
-// app.use("/like", likeRoute)
-// app.use("/type", typeRoute)
-// app.use("/user", userRoute)
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);

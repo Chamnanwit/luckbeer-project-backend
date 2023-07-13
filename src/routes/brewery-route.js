@@ -21,12 +21,5 @@ router.post(
 
   breweryController.addBrewery
 );
-// router.post(
-//   "/image",
-//   authenticate,
-//   authenticateAdmin,
-//   upload.fields([{ name: "image", maxCount: 1 },{ name: "logo", maxCount: 1 }]),
-//   breweryController.uploadImage
-// );
 
 module.exports = router;

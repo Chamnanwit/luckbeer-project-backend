@@ -24,13 +24,5 @@ router.delete("/:beerId/comment/:commentId/admin", authenticate, authenticateAdm
 router.delete("/:beerId/comment/:commentId/user", authenticate, beerController.deleteCommentBeerByUser); // โดย user
 
 router.post("/:beerid/like", beerController.toggleLike); // ตัด-----------------------
-// router.post("/image/:beerId", authenticate, authenticateAdmin, upload.fields([
-//     { name: "image1", maxCount: 1 },
-//     { name: "image2", maxCount: 1 },
-//     { name: "image3", maxCount: 1 },
-//     { name: "image4", maxCount: 1 },
-//   ]),
-//   beerController.uploadImage
-// );
 
 module.exports = router;
