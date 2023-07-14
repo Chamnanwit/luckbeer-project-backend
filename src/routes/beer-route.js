@@ -7,21 +7,51 @@ const upload = require("../middlewares/upload");
 
 const router = express.Router();
 
+router.get(
+  "/:beerId/comment/:commentId",
+  authenticate,
+  beerController.getComment
+);
 router.get("/search", beerController.findBeer);
 router.get("/:beerId", beerController.dataBeer);
 router.get("/", beerController.getAllBeer);
-router.post("/", authenticate, authenticateAdmin, upload.fields([
-  { name: "image1", maxCount: 1 },
-  { name: "image2", maxCount: 1 },
-  { name: "image3", maxCount: 1 },
-  { name: "image4", maxCount: 1 },
-]), beerController.addBeer);
+router.post(
+  "/",
+  authenticate,
+  authenticateAdmin,
+  upload.fields([
+    { name: "image1", maxCount: 1 },
+    { name: "image2", maxCount: 1 },
+    { name: "image3", maxCount: 1 },
+    { name: "image4", maxCount: 1 },
+  ]),
+  beerController.addBeer
+);
+router.delete(
+  "/:beerId",
+  authenticate,
+  authenticateAdmin,
+  beerController.deleteBeerById
+);
 
 router.get("/:beerId/comment", beerController.getCommentBeer);
 router.post("/:beerId/comment", authenticate, beerController.addCommentBeer);
-router.patch("/:beerId/comment/:commentId", authenticate, beerController.updateCommentBeer); // ต้องเป็นชื่อตัวเองถึงแก้ได้
-router.delete("/:beerId/comment/:commentId/admin", authenticate, authenticateAdmin, beerController.deleteCommentBeer); // โดย admin
-router.delete("/:beerId/comment/:commentId/user", authenticate, beerController.deleteCommentBeerByUser); // โดย user
+router.patch(
+  "/:beerId/comment/:commentId",
+  authenticate,
+  beerController.updateCommentBeer
+); // ต้องเป็นชื่อตัวเองถึงแก้ได้
+router.delete(
+  "/:beerId/comment/:commentId/admin",
+  authenticate,
+  authenticateAdmin,
+  beerController.deleteCommentBeer
+); // โดย admin
+router.delete(
+  "/:beerId/comment/:commentId/user",
+  authenticate,
+  beerController.deleteCommentBeerByUser
+); // โดย user
 
 router.post("/:beerid/like", beerController.toggleLike); // ตัด-----------------------
 

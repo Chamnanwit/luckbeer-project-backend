@@ -1,5 +1,13 @@
 const { where } = require("sequelize");
-const { Beer, Type, Comment, Like, ImageBeer, Brewery, User } = require("../models");
+const {
+  Beer,
+  Type,
+  Comment,
+  Like,
+  ImageBeer,
+  Brewery,
+  User,
+} = require("../models");
 
 exports.getAllBeer = () =>
   Beer.findAll({
@@ -82,3 +90,14 @@ exports.getCommentBeer = (beerId) =>
     where: { beerId: beerId },
     include: [{ model: User }],
   });
+
+exports.getComment = (beerId, commentId) => {
+  Comment.findOne({
+    where: {
+      id: commentId,
+      beerId: beerId,
+    },
+  });
+};
+
+exports.deleteBeerById = (beerId) => Beer.destroy({ where: { id: beerId } });

@@ -26,7 +26,6 @@ exports.findBeer = async (req, res, next) => {
 };
 
 exports.addBeer = async (req, res, next) => {
-
   try {
     const beer = req.body;
 
@@ -49,7 +48,7 @@ exports.addBeer = async (req, res, next) => {
     console.log(createValue);
     const rs = await beerService.createImageBeer(createValue);
     res.status(200).json(rs);
-  
+
     res.status(200).json({ rs2 });
   } catch (err) {
     next(err);
@@ -186,13 +185,32 @@ exports.uploadImage = async (req, res, next) => {
   }
 };
 
-
-exports.getCommentBeer = async (req,res,next) => {
+exports.getCommentBeer = async (req, res, next) => {
   try {
     const { beerId } = req.params;
     const rs = await beerService.getCommentBeer(beerId);
     res.status(200).json(rs);
   } catch (err) {
-    next (err)
+    next(err);
   }
-}
+};
+
+exports.getComment = async (req, res, next) => {
+  try {
+    const { beerId, commentId } = req.params;
+    const rs = await beerService.getComment(beerId, commentId);
+    res.status(200).json(rs);
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.deleteBeerById = async (req, res, next) => {
+  try {
+    const { beerId } = req.params;
+    const rs = await beerService.deleteBeerById(beerId);
+    res.status(200).json(rs);
+  } catch (err) {
+    next(err);
+  }
+};

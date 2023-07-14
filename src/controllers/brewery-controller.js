@@ -15,7 +15,7 @@ exports.getAllBrewery = async (req, res, next) => {
 exports.addBrewery = async (req, res, next) => {
   try {
     const brew = req.body;
-    // console.log("----------------------------", brew)
+    console.log("----------------------------", req.files)
     // console.log(brew)
 
     const uploadImage = await uploadService.upload(req.files.image[0].path);
